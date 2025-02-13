@@ -1,0 +1,12 @@
+requests
+typer
+rich
+
+[dev]
+black
+mypy
+pytest
+pytest-cov
+pytest-mock
+types-requests
+types-setuptools

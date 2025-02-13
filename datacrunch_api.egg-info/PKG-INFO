@@ -1,0 +1,53 @@
+Metadata-Version: 2.2
+Name: datacrunch_api
+Version: 0.0.1
+Summary: Datacrunch API
+Home-page: https://github.com/findable-no/datacrunch_api
+Author: Knut Hellan
+Author-email: Knut Hellan <knut@findable.ai>
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.13
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: typer
+Requires-Dist: rich
+Provides-Extra: dev
+Requires-Dist: black; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: pytest-mock; extra == "dev"
+Requires-Dist: types-requests; extra == "dev"
+Requires-Dist: types-setuptools; extra == "dev"
+Dynamic: author
+Dynamic: home-page
+Dynamic: requires-python
+
+# Introduction
+
+This is the API for the Datacunrhc project.
+
+It is a Python wrapper around the Datacunrhc REST API.
+
+
+The REST API is documented at <https://api.datacrunch.io/v1/docs#tag/serverless-containers/GET/v1/>.
+
+# Installation
+
+Currently, the only way to install is to clone the repository and install manually:
+
+```bash
+pip install -e .
+```
+
+# Implementation details
+
+The API is implemented as a Python wrapper around the Datacunrhc REST API.
+
+The wrapper is generated using the `requests` library and Cursor.
+
+pyproject.toml contains the dependencies.
+
+Install dependencies with `pip install -e .[dev]`
+
