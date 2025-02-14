@@ -1,12 +1,13 @@
-# Introduction
+# DataCrunch API Python Client
 
-This is the API for the Datacrunch project.
+A Python client library for interacting with the DataCrunch.io API. This library provides a clean interface for managing:
 
-It is a Python wrapper around the Datacrunch REST API.
+- Container deployments
+- Serverless compute resources 
+- Secrets
+- Environment variables
 
-The REST API is documented at <https://api.datacrunch.io/v1/docs#tag/serverless-containers/GET/v1/>.
-
-# Installation
+## Installation
 
 Currently, the only way to install is to clone the repository and install manually:
 
@@ -22,5 +23,5 @@ The wrapper is generated using the `requests` library and Cursor.
 
 pyproject.toml contains the dependencies.
 
-Install dependencies with `pip install -e .[dev]`
+Install dependencies for development with `pip install -e .[dev]`
 
