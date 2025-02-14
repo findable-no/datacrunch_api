@@ -1,7 +1,7 @@
 from enum import Enum
 
 from ._api_session import ApiSession
-from .secret import Secret
+from .types.secret import Secret
 
 
 class Endpoints(str, Enum):
