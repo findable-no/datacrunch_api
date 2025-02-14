@@ -19,7 +19,6 @@ from datacrunch_api.v1 import (
     VolumeMount,
     VolumeMounts,
 )
-import typer  # type: ignore
 from rich import print  # type: ignore
 from rich.panel import Panel  # type: ignore
 

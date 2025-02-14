@@ -1,23 +1,23 @@
-from .autoupdate import AutoUpdate
-from .compute import Compute
-from .container import Container
-from .container_registry_settings import ContainerRegistrySettings
-from .credentials import Credentials
-from .deployment import Deployment
+from .types.autoupdate import AutoUpdate
+from .types.compute import Compute
+from .types.container import Container
+from .types.container_registry_settings import ContainerRegistrySettings
+from .types.credentials import Credentials
+from .types.deployment import Deployment
 from .deployments import Deployments
-from .entrypoint import CommandLine, EntrypointOverrides
-from .environment import Environment, EnvironmentVariable
-from .healthcheck import HealthCheck
-from .scaling import (
+from .types.entrypoint import CommandLine, EntrypointOverrides
+from .types.environment import Environment, EnvironmentVariable
+from .types.healthcheck import HealthCheck
+from .types.scaling import (
     QueueLoad,
     Scaling,
     ScalingPolicy,
     ScalingTriggers,
 )
-from .secret import Secret
+from .types.secret import Secret
 from .secrets import Secrets
 from .serverless_compute import ServerlessCompute
-from .volume_mounts import VolumeMount, VolumeMounts
+from .types.volume_mounts import VolumeMount, VolumeMounts
 
 
 __all__ = [

@@ -1,4 +1,3 @@
-import requests
 from enum import Enum
 
 from ._api_session import ApiSession

@@ -2,7 +2,7 @@ import requests
 from enum import Enum
 
 from ._api_session import ApiSession
-from .deployment import Deployment
+from .types.deployment import Deployment
 
 
 BASE_URL = "https://api.datacrunch.io/v1"
