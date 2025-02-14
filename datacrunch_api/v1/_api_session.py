@@ -18,7 +18,7 @@ class ApiSession:
         self.session = requests.Session()
         self.authenticate(client_id, client_secret)
 
-    def authenticate(self, client_id: str, client_secret: str):
+    def authenticate(self, client_id: str, client_secret: str) -> None:
         """Authenticate with the DataCrunch API using client credentials"""
         response = self.session.post(
             f"{self.base_url}/oauth2/token",

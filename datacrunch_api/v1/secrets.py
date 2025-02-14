@@ -1,4 +1,3 @@
-import requests
 from enum import Enum
 
 from ._api_session import ApiSession
@@ -29,7 +28,7 @@ class Secrets:
     def create_secret(self, secret: Secret) -> None:
         """Create a new secret"""
         response = self.api_session.post_raw(
-            Endpoints.SECRETS.value, json=secret.to_dict()
+            Endpoints.SECRETS.value, json=secret.to_dict()  # type: ignore
         )
         if response.status_code != 201:
             raise self.RequestFailed(response.json())

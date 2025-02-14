@@ -1,19 +1,11 @@
 from dataclasses import dataclass
+from typing import Literal
+from dataclasses_json import dataclass_json
 
 
-ComputeValue = dict[str, str]
-
-
-@dataclass
+@dataclass_json
+@dataclass(frozen=True)
 class Compute:
     name: "Compute.Names"
 
-    class Names(str):
-        A100_40GB = "A100 40GB"
-        GENERAL = "General Compute"
-        H100 = "H100"
-        L40S = "L40S"
-        RTX6000_ADA = "RTX6000 Ada"
-
-    def to_dict(self) -> ComputeValue:
-        return {"name": self.name}
+    Names = Literal["A100 40GB", "General Compute", "H100", "L40S", "RTX6000 Ada"]

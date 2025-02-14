@@ -1,9 +1,8 @@
 # Introduction
 
-This is the API for the Datacunrhc project.
+This is the API for the Datacrunch project.
 
-It is a Python wrapper around the Datacunrhc REST API.
-
+It is a Python wrapper around the Datacrunch REST API.
 
 The REST API is documented at <https://api.datacrunch.io/v1/docs#tag/serverless-containers/GET/v1/>.
 
@@ -17,7 +16,7 @@ pip install -e .
 
 # Implementation details
 
-The API is implemented as a Python wrapper around the Datacunrhc REST API.
+The API is implemented as a Python wrapper around the Datacrunch REST API.
 
 The wrapper is generated using the `requests` library and Cursor.
 

@@ -41,7 +41,7 @@ class Deployments:
         """Create a new container deployment"""
         return self.api_session.post(
             Endpoints.CONTAINER_DEPLOYMENTS.value,
-            json=deployment_config.to_dict(),
+            json=deployment_config.to_dict(),  # type: ignore
         )
 
     def get_container_deployment(self, deployment_name: str) -> dict:
@@ -58,7 +58,7 @@ class Deployments:
         """Update a container deployment"""
         return self.api_session.patch(
             f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}",
-            json=deployment_config.to_dict(),
+            json=deployment_config.to_dict(),  # type: ignore
         )
 
     def delete_container_deployment(self, deployment_name: str) -> None:

@@ -1,18 +1,10 @@
 from dataclasses import dataclass
+from dataclasses_json import dataclass_json
 
 
-HealthCheckValue = dict[str, bool | str | int]
-
-
-@dataclass
+@dataclass_json
+@dataclass(frozen=True)
 class HealthCheck:
     enabled: bool
     path: str
     port: int
-
-    def to_dict(self) -> HealthCheckValue:
-        return {
-            "enabled": self.enabled,
-            "path": self.path,
-            "port": self.port,
-        }

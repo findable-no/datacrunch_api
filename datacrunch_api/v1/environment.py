@@ -1,30 +1,16 @@
 from dataclasses import dataclass
+from typing import Literal
+from dataclasses_json import dataclass_json
 
 
-EnvironmentVariableValue = dict[str, str]
-
-
-@dataclass
+@dataclass_json
+@dataclass(frozen=True)
 class EnvironmentVariable:
     name: str
     value: str
     type: "EnvironmentVariable.Type"
 
-    class Type(str):
-        PLAIN = "plain"
-        SECRET = "secret"
-
-    def to_dict(self) -> EnvironmentVariableValue:
-        return {
-            "name": self.name,
-            "value_or_reference_to_secret": self.value,
-            "type": self.type,
-        }
+    Type = Literal["plain", "secret"]
 
 
-EnvironmentValue = list[EnvironmentVariableValue]
-
-
-class Environment(list[EnvironmentVariable]):
-    def to_list(self) -> EnvironmentValue:
-        return [env_var.to_dict() for env_var in self]
+Environment = list[EnvironmentVariable]

@@ -1,27 +1,15 @@
 from dataclasses import dataclass
+from typing import Literal
+from dataclasses_json import dataclass_json
 
 
-VolumeMountValue = dict[str, str]
-
-
-@dataclass
+@dataclass_json
+@dataclass(frozen=True)
 class VolumeMount:
     type: "VolumeMount.Type"
     mount_path: str
 
-    class Type(str):
-        SCRATCH = "scratch"
-
-    def to_dict(self) -> VolumeMountValue:
-        return {
-            "type": self.type,
-            "mount_path": self.mount_path,
-        }
+    Type = Literal["scratch"]
 
 
-VolumeMountsValue = list[VolumeMountValue]
-
-
-class VolumeMounts(list[VolumeMount]):
-    def to_list(self) -> VolumeMountsValue:
-        return [volume_mount.to_dict() for volume_mount in self]
+VolumeMounts = list[VolumeMount]

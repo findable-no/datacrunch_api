@@ -1,20 +1,10 @@
 from dataclasses import dataclass
+from dataclasses_json import dataclass_json
 
 
-AutoUpdateValue = dict[str, str | bool]
-
-
-@dataclass
+@dataclass_json
+@dataclass(frozen=True)
 class AutoUpdate:
     enabled: bool
     mode: str
     tag_filter: str | None = None
-
-    def to_dict(self) -> AutoUpdateValue:
-        value: AutoUpdateValue = {
-            "enabled": self.enabled,
-            "mode": self.mode,
-        }
-        if self.tag_filter:
-            value["tag_filter"] = self.tag_filter
-        return value

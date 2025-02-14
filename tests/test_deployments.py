@@ -27,7 +27,7 @@ def deployment() -> Deployment:
     return Deployment(
         name="test-deployment",
         compute=Compute(
-            name=Compute.Names.GENERAL,
+            name="General Compute",
         ),
         container_registry_settings=ContainerRegistrySettings(
             is_private=False,
@@ -44,7 +44,7 @@ def deployment() -> Deployment:
                 name="test-container",
                 image="test-image:latest",
                 exposed_port=8000,
-                volume_mounts=VolumeMounts([]),
+                volume_mounts=VolumeMounts(),
             )
         ],
         scaling=Scaling(

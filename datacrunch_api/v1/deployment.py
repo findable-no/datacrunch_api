@@ -1,37 +1,17 @@
 from dataclasses import dataclass
+from dataclasses_json import dataclass_json
 
-from .container import Container, ContainerValue
-from .container_registry_settings import (
-    ContainerRegistrySettings,
-    ContainerRegistrySettingsValue,
-)
-from .compute import Compute, ComputeValue
-from .scaling import Scaling, ScalingValue
+from .container import Container
+from .container_registry_settings import ContainerRegistrySettings
+from .compute import Compute
+from .scaling import Scaling
 
 
-DeploymentValue = dict[
-    str,
-    ContainerRegistrySettingsValue
-    | list[ContainerValue]
-    | ComputeValue
-    | ScalingValue
-    | str,
-]
-
-
-@dataclass
+@dataclass_json
+@dataclass(frozen=True)
 class Deployment:
     name: str
     containers: list[Container]
     container_registry_settings: ContainerRegistrySettings
     compute: Compute
     scaling: Scaling
-
-    def to_dict(self) -> DeploymentValue:
-        return {
-            "name": self.name,
-            "containers": [container.to_dict() for container in self.containers],
-            "container_registry_settings": self.container_registry_settings.to_dict(),
-            "compute": self.compute.to_dict(),
-            "scaling": self.scaling.to_dict(),
-        }

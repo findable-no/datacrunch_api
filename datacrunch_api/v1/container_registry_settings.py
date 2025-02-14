@@ -1,20 +1,11 @@
 from dataclasses import dataclass
+from dataclasses_json import dataclass_json
 
-from .credentials import Credentials, CredentialsValue
-
-ContainerRegistrySettingsValue = dict[str, bool | CredentialsValue]
+from .credentials import Credentials
 
 
-@dataclass
+@dataclass_json
+@dataclass(frozen=True)
 class ContainerRegistrySettings:
     is_private: bool
     credentials: Credentials | None = None
-
-    def to_dict(self) -> ContainerRegistrySettingsValue:
-        response: ContainerRegistrySettingsValue = {
-            "is_private": self.is_private,
-        }
-        if self.is_private:
-            assert self.credentials is not None
-            response["credentials"] = self.credentials.to_dict()
-        return response

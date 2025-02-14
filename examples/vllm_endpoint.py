@@ -57,17 +57,17 @@ class VLLMEndpoint:
                     EnvironmentVariable(
                         name="HF_TOKEN",
                         value=self.huggingface_key,
-                        type=EnvironmentVariable.Type.SECRET,
+                        type="secret",
                     ),
                     EnvironmentVariable(
                         name="HF_HOME",
                         value="/data/.huggingface",
-                        type=EnvironmentVariable.Type.PLAIN,
+                        type="plain",
                     ),
                     EnvironmentVariable(
                         name="HF_HUB_ENABLE_HF_TRANSFER",
                         value="1",
-                        type=EnvironmentVariable.Type.PLAIN,
+                        type="plain",
                     ),
                 ]
             ),
@@ -78,7 +78,7 @@ class VLLMEndpoint:
             volume_mounts=VolumeMounts(
                 [
                     VolumeMount(
-                        type=VolumeMount.Type.SCRATCH,
+                        type="scratch",
                         mount_path="/data/.huggingface",
                     )
                 ]
@@ -93,7 +93,7 @@ class VLLMEndpoint:
                     name="hf-token",
                 ),
             ),
-            compute=Compute(Compute.Names.RTX6000_ADA),
+            compute=Compute(name="RTX6000 Ada"),
             scaling=Scaling(
                 min_replica_count=1,
                 max_replica_count=1,
@@ -120,7 +120,7 @@ class VLLMEndpoint:
         print(
             Panel.fit(
                 json.dumps(
-                    self.deployment(container_name, image, command).to_dict(), indent=2
+                    self.deployment(container_name, image, command).to_dict(), indent=2  # type: ignore
                 ),
                 title="Request",
                 border_style="red",

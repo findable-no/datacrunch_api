@@ -1,13 +1,8 @@
 from dataclasses import dataclass
+from dataclasses_json import dataclass_json
 
-CredentialsValue = dict[str, str]
 
-
-@dataclass
+@dataclass_json
+@dataclass(frozen=True)
 class Credentials:
     name: str
-
-    def to_dict(self) -> CredentialsValue:
-        return {
-            "name": self.name,
-        }

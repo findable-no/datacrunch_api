@@ -19,6 +19,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+    "dataclasses-json",
     "requests",
     "typer",
     "rich",
@@ -26,6 +27,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "black",
+    "types-dataclasses-json",
     "mypy",
     "pytest",
     "pytest-cov",
