@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Literal
-from dataclasses_json import dataclass_json
+from dataclasses_json import dataclass_json  # type: ignore
 
 
 @dataclass_json

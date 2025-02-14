@@ -1,9 +1,9 @@
 import json
 
-from datacrunch.v1 import Secret, Secrets
-import typer
-from rich import print
-from rich.panel import Panel
+from datacrunch_api.v1 import Secret, Secrets
+import typer  # type: ignore
+from rich import print  # type: ignore
+from rich.panel import Panel  # type: ignore
 
 
 def main(
@@ -18,9 +18,9 @@ def main(
         case "list":
             response = api.list_secrets()
         case "create":
-            response = api.create_secret(Secret(name, value))
+            api.create_secret(Secret(name, value))
         case "delete":
-            response = api.delete_secret(name)
+            api.delete_secret(name)
         case _:
             raise typer.Abort()
     print(

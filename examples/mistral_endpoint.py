@@ -1,11 +1,11 @@
 import json
 
 from datacrunch_api.v1 import Deployments
-import typer
-from rich import print
-from rich.panel import Panel
+import typer  # type: ignore
+from rich import print  # type: ignore
+from rich.panel import Panel  # type: ignore
 
-from vllm_endpoint import VLLMEndpoint
+from .vllm_endpoint import VLLMEndpoint
 
 CONTAINER_NAME = "mistral"
 IMAGE = "docker.io/vllm/vllm-openai:v0.7.1"

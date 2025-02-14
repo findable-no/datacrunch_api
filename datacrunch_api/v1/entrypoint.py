@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from dataclasses_json import dataclass_json
+from dataclasses_json import dataclass_json  # type: ignore
 
 CommandLine = list[str]
 
