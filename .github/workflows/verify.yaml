@@ -1,0 +1,8 @@
+on:
+    push:
+  
+jobs:
+  verify:
+    uses: findable-no/cicd_workflows/.github/workflows/verify_python_cdk.yaml@main
+    with:
+      python-version: 3.13

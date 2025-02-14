@@ -1,0 +1,37 @@
+[build-system]
+requires = [
+    "setuptools>=75.0",
+]
+build-backend = "setuptools.build_meta"
+[tool.setuptools]
+py-modules=["tools"]
+[project]
+name = "datacrunch_api"
+version = "0.0.1"
+authors = [
+    {name="Knut Hellan", email="knut@findable.ai"},
+]
+description="Datacrunch API"
+readme = "README.md"
+requires-python = ">=3.13"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "dataclasses-json",
+    "requests",
+    "typer",
+    "rich",
+]
+[project.optional-dependencies]
+dev = [
+    "black",
+    "types-dataclasses-json",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+    "pytest-mock",
+    "types-requests",
+    "types-setuptools",
+]
