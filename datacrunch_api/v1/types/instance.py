@@ -1,6 +1,6 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Literal
-from dataclasses_json import dataclass_json
+from dataclasses_json import config, dataclass_json  # type: ignore
 from .volume import Volume
 
 Action = Literal[
@@ -35,15 +35,33 @@ class Instance:
     hostname: str
     image: str
     instance_type: str
-    contract: Contract | None = None
-    coupon: str | None = None
-    existing_volumes: list[str] | None = None
-    is_spot: bool | None = None
-    location_code: str | None = None
-    os_volume: OSVolume | None = None
-    pricing: Pricing | None = None
-    ssh_key_ids: list[str] | None = None
-    volumes: list[Volume] | None = None
+    contract: Contract | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    coupon: str | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    existing_volumes: list[str] | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    is_spot: bool | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    location_code: str | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    os_volume: OSVolume | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    pricing: Pricing | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    ssh_key_ids: list[str] | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    volumes: list[Volume] | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
 
 
 @dataclass_json
@@ -51,4 +69,6 @@ class Instance:
 class InstanceAction:
     action: Action
     instance_id: str
-    volume_ids: list[str] | None = None
+    volume_ids: list[str] | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )

@@ -49,7 +49,7 @@ class VLLMEndpoint:
             ),
             entrypoint_overrides=EntrypointOverrides(
                 enabled=True,
-                command=command,
+                cmd=command,
             ),
             environment=Environment(
                 [
