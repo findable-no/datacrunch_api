@@ -211,9 +211,11 @@ class Deployments:
         Returns:
             Response from purge operation
         """
-        return self.api_session.post(
-            f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}/{Endpoints.PURGE_QUEUE.value}",
-            json={},
+        return dict(
+            self.api_session.post(  # type: ignore
+                f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}/{Endpoints.PURGE_QUEUE.value}",
+                json={},
+            )
         )
 
     def pause_deployment(self, deployment_name: str) -> dict:
@@ -226,9 +228,11 @@ class Deployments:
         Returns:
             Response from pause operation
         """
-        return self.api_session.post(
-            f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}/{Endpoints.PAUSE.value}",
-            json={},
+        return dict(
+            self.api_session.post(  # type: ignore
+                f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}/{Endpoints.PAUSE.value}",
+                json={},
+            )
         )
 
     def resume_deployment(self, deployment_name: str) -> dict:
@@ -241,9 +245,11 @@ class Deployments:
         Returns:
             Response from resume operation
         """
-        return self.api_session.post(
-            f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}/{Endpoints.RESUME.value}",
-            json={},
+        return dict(
+            self.api_session.post(  # type: ignore
+                f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}/{Endpoints.RESUME.value}",
+                json={},
+            )
         )
 
     # Environment Variables
@@ -276,9 +282,11 @@ class Deployments:
         Returns:
             Created environment variables
         """
-        return self.api_session.post(
-            f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}/{Endpoints.ENVIRONMENT_VARIABLES.value}",
-            json=variables,
+        return dict(
+            self.api_session.post(  # type: ignore
+                f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}/{Endpoints.ENVIRONMENT_VARIABLES.value}",
+                json=variables,
+            )
         )
 
     def update_environment_variables(
@@ -294,9 +302,11 @@ class Deployments:
         Returns:
             Updated environment variables
         """
-        return self.api_session.patch(
-            f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}/{Endpoints.ENVIRONMENT_VARIABLES.value}",
-            json=variables,
+        return dict(
+            self.api_session.patch(
+                f"{Endpoints.CONTAINER_DEPLOYMENTS.value}/{deployment_name}/{Endpoints.ENVIRONMENT_VARIABLES.value}",
+                json=variables,
+            )
         )
 
     def delete_environment_variables(self, deployment_name: str) -> None:

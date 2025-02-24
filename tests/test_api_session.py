@@ -16,7 +16,9 @@ def test_delete(mocker, api_session):
     mock_session = mocker.patch.object(api_session, "session")
     mock_session.delete.return_value.status_code = 200
     api_session.delete("dummy_url")
-    mock_session.delete.assert_called_once_with(f"{api_session.base_url}/dummy_url")
+    mock_session.delete.assert_called_once_with(
+        f"{api_session.base_url}/dummy_url", json=None
+    )
 
 
 def test_get(mocker, api_session):

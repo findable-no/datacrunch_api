@@ -57,7 +57,7 @@ class ApiSession:
         token = response.json()["access_token"]
         self.session.headers.update({"Authorization": f"Bearer {token}"})
 
-    def delete(self, url: str) -> None:
+    def delete(self, url: str, json: dict | None = None) -> None:
         """
         Send a DELETE request to the API.
 
@@ -67,8 +67,8 @@ class ApiSession:
         Raises:
             RequestFailed: If the request fails
         """
-        response = self.session.delete(f"{self.base_url}/{url}")
-        if response.status_code != 200:
+        response = self.session.delete(f"{self.base_url}/{url}", json=json)
+        if response.status_code < 200 or response.status_code >= 300:
             raise self.RequestFailed(response.json())
 
     def get(self, url: str) -> dict | list:
@@ -106,7 +106,7 @@ class ApiSession:
         response = self.session.patch(f"{self.base_url}/{url}", json=json)
         return self.validate_response(response.json())
 
-    def post(self, url: str, json: dict) -> dict:
+    def post(self, url: str, json: dict) -> dict | str:
         """
         Send a POST request to the API and validate the response.
 
@@ -136,6 +136,37 @@ class ApiSession:
             The raw requests.Response object
         """
         response = self.session.post(f"{self.base_url}/{url}", json=json)
+        return response
+
+    def put(self, url: str, json: dict) -> dict:
+        """
+        Send a PUT request to the API and validate the response.
+
+        Args:
+            url: The API endpoint URL
+            json: The request body as a dict
+
+        Returns:
+            The validated JSON response as a dict
+
+        Raises:
+            InvalidRequest: If the request is invalid
+        """
+        response = self.session.put(f"{self.base_url}/{url}", json=json)
+        return self.validate_response(response.json())
+
+    def put_raw(self, url: str, json: dict) -> requests.Response:
+        """
+        Send a PUT request to the API without validating the response.
+
+        Args:
+            url: The API endpoint URL
+            json: The request body as a dict
+
+        Returns:
+            The raw requests.Response object
+        """
+        response = self.session.put(f"{self.base_url}/{url}", json=json)
         return response
 
     def validate_response(self, response: dict) -> dict:
