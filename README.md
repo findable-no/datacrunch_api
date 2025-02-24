@@ -6,6 +6,10 @@ A Python client library for interacting with the DataCrunch.io API. This library
 - Serverless compute resources 
 - Secrets
 - Environment variables
+- Instances
+- Volumes
+- Startup Scripts
+- SSH Keys
 
 ## Installation
 
