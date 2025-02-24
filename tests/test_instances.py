@@ -27,7 +27,7 @@ def test_delete_instance(mocker, instances):
 
     mock_session.put_raw.assert_called_once_with(
         f"instances",
-        json={"action": "delete", "instance_id": instance_id, "volume_ids": None},
+        json={"action": "delete", "instance_id": instance_id},
     )
 
 

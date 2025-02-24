@@ -1,6 +1,6 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Literal
-from dataclasses_json import dataclass_json
+from dataclasses_json import config, dataclass_json  # type: ignore
 
 
 @dataclass_json
@@ -9,9 +9,15 @@ class Volume:
     name: str
     size: int
     type: str
-    location_code: str | None = None
-    instance_id: str | None = None
-    instance_ids: list[str] | None = None
+    location_code: str | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    instance_id: str | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    instance_ids: list[str] | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
 
 
 @dataclass_json
@@ -21,10 +27,15 @@ class VolumeAction:
         "attach", "clone", "delete", "detach", "rename", "resize", "restore"
     ]
     id: str
-    instance_id: str | None = None
-    instance_ids: list[str] | None = None
-    is_permanent: bool | None = None
-    location_code: str | None = None
-    name: str | None = None
-    size: int | None = None
-    type: str | None = None
+    instance_id: str | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    instance_ids: list[str] | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    is_permanent: bool | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
+    location_code: str | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )

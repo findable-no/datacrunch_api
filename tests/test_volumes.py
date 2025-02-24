@@ -57,9 +57,6 @@ def test_create_volume(mocker, volumes):
             "name": "test-volume",
             "size": 10,
             "type": "test-volume-type",
-            "location_code": None,
-            "instance_id": None,
-            "instance_ids": None,
         },
     )
 
@@ -79,13 +76,6 @@ def test_action(mocker, volumes):
         json={
             "action": "delete",
             "id": "123",
-            "instance_id": None,
-            "instance_ids": None,
-            "is_permanent": None,
-            "location_code": None,
-            "name": None,
-            "size": None,
-            "type": None,
         },
     )
 

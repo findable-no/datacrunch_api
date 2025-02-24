@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from dataclasses_json import dataclass_json  # type: ignore
+from dataclasses import dataclass, field
+from dataclasses_json import config, dataclass_json  # type: ignore
 
 from .autoupdate import AutoUpdate
 from .entrypoint import EntrypointOverrides
@@ -18,4 +18,6 @@ class Container:
     image: str
     name: str
     volume_mounts: VolumeMounts
-    entrypoint_overrides: EntrypointOverrides | None = None
+    entrypoint_overrides: EntrypointOverrides | None = field(
+        default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
+    )
