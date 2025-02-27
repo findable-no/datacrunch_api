@@ -30,10 +30,12 @@ class VLLMEndpoint:
         api: Deployments,
         huggingface_key: str,
         deployment_name: str,
+        is_private: bool = False,
     ):
         self.api = api
         self.huggingface_key = huggingface_key
         self.deployment_name = deployment_name
+        self.is_private = is_private
 
     def deployment(
         self, container_name: str, image: str, command: list[str]
@@ -87,7 +89,8 @@ class VLLMEndpoint:
             name=self.deployment_name,
             containers=[container],
             container_registry_settings=ContainerRegistrySettings(
-                is_private=False,
+                is_private=self.is_private,
+                privacyMode="private",
                 credentials=Credentials(
                     name="hf-token",
                 ),
