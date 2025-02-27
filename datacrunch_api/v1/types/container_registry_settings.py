@@ -8,6 +8,7 @@ from .credentials import Credentials
 @dataclass(frozen=True)
 class ContainerRegistrySettings:
     is_private: bool
+    privacyMode: str
     credentials: Credentials | None = field(
         default=None, metadata=config(exclude=lambda f: f is None)  # type: ignore
     )
