@@ -31,14 +31,18 @@ class VLLMEndpoint:
         huggingface_key: str,
         deployment_name: str,
         is_private: bool = False,
+        aws_access_key: str = "aws-access-key",
+        aws_secret_key: str = "aws-secret-key",
     ):
         self.api = api
         self.huggingface_key = huggingface_key
+        self.aws_access_key = aws_access_key
+        self.aws_secret_key = aws_secret_key
         self.deployment_name = deployment_name
         self.is_private = is_private
 
     def deployment(
-        self, container_name: str, image: str, command: list[str]
+        self, container_name: str, image: str, command: list[str], 
     ) -> Deployment:
         container = Container(
             name=container_name,
@@ -61,8 +65,18 @@ class VLLMEndpoint:
                         type="secret",
                     ),
                     EnvironmentVariable(
+                        name="AWS_ACCESS_KEY",
+                        value=self.aws_access_key,
+                        type="secret",
+                    ),
+                    EnvironmentVariable(
+                        name="AWS_SECRET_KEY",
+                        value=self.aws_secret_key,
+                        type="secret",
+                    ),
+                    EnvironmentVariable(
                         name="HF_HOME",
-                        value="/data/.huggingface",
+                        value="/data/huggingface",
                         type="plain",
                     ),
                     EnvironmentVariable(
@@ -80,14 +94,22 @@ class VLLMEndpoint:
                 [
                     VolumeMount(
                         type="scratch",
-                        mount_path="/data/.huggingface",
+                        mount_path="/data/huggingface",
                     )
                 ]
             ),
         )
+        print("IS PRIVATE", self.is_private)
         deployment = Deployment(
             name=self.deployment_name,
             containers=[container],
+            # container_registry_settings=ContainerRegistrySettings(
+            #     # privacyMode ="public",
+            #     is_private=False,
+            #     credentials=Credentials(
+            #             name="hf-token",
+            #         ),
+            # ),
             container_registry_settings=ContainerRegistrySettings(
                 is_private=self.is_private,
                 privacyMode="private",
