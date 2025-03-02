@@ -33,13 +33,15 @@ class VLLMEndpoint:
         is_private: bool = False,
         aws_access_key: str = "aws-access-key",
         aws_secret_key: str = "aws-secret-key",
+        aws_default_region: str = "eu-central-1",
     ):
         self.api = api
         self.huggingface_key = huggingface_key
-        self.aws_access_key = aws_access_key
-        self.aws_secret_key = aws_secret_key
         self.deployment_name = deployment_name
         self.is_private = is_private
+        self.aws_access_key = aws_access_key
+        self.aws_secret_key = aws_secret_key
+        self.aws_default_region = aws_default_region
 
     def deployment(
         self, container_name: str, image: str, command: list[str], 
@@ -60,28 +62,33 @@ class VLLMEndpoint:
             environment=Environment(
                 [
                     EnvironmentVariable(
-                        name="HF_TOKEN",
-                        value=self.huggingface_key,
-                        type="secret",
-                    ),
-                    EnvironmentVariable(
-                        name="AWS_ACCESS_KEY",
-                        value=self.aws_access_key,
-                        type="secret",
-                    ),
-                    EnvironmentVariable(
-                        name="AWS_SECRET_KEY",
-                        value=self.aws_secret_key,
-                        type="secret",
-                    ),
-                    EnvironmentVariable(
                         name="HF_HOME",
-                        value="/data/huggingface",
+                        value_or_reference_to_secret="/data/huggingface",
+                        type="plain",
+                    ),
+                    EnvironmentVariable(
+                        name="HF_TOKEN",
+                        value_or_reference_to_secret=self.huggingface_key,
+                        type="secret",
+                    ),
+                    EnvironmentVariable(
+                        name="AWS_ACCESS_KEY_ID",
+                        value_or_reference_to_secret=self.aws_access_key,
+                        type="secret",
+                    ),
+                    EnvironmentVariable(
+                        name="AWS_SECRET_ACCESS_KEY",
+                        value_or_reference_to_secret=self.aws_secret_key,
+                        type="secret",
+                    ),
+                    EnvironmentVariable(
+                        name="AWS_DEFAULT_REGION",
+                        value_or_reference_to_secret=self.aws_default_region,
                         type="plain",
                     ),
                     EnvironmentVariable(
                         name="HF_HUB_ENABLE_HF_TRANSFER",
-                        value="1",
+                        value_or_reference_to_secret="1",
                         type="plain",
                     ),
                 ]
@@ -99,23 +106,16 @@ class VLLMEndpoint:
                 ]
             ),
         )
-        print("IS PRIVATE", self.is_private)
         deployment = Deployment(
             name=self.deployment_name,
             containers=[container],
-            # container_registry_settings=ContainerRegistrySettings(
-            #     # privacyMode ="public",
-            #     is_private=False,
-            #     credentials=Credentials(
-            #             name="hf-token",
-            #         ),
-            # ),
             container_registry_settings=ContainerRegistrySettings(
                 is_private=self.is_private,
                 privacyMode="private",
-                credentials=Credentials(
-                    name="hf-token",
-                ),
+                credentials=
+                    Credentials(
+                        name="aws-datacrunch-ecr-role-v2",
+                    ),
             ),
             compute=Compute(name="RTX6000 Ada"),
             scaling=Scaling(
