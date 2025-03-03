@@ -114,7 +114,6 @@ class VLLMEndpoint:
             containers=[container],
             container_registry_settings=ContainerRegistrySettings(
                 is_private=self.is_private,
-                privacyMode="private",
                 credentials=Credentials(
                     name="aws-datacrunch-ecr-role-v3",
                 ),

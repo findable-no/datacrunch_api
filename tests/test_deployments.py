@@ -30,12 +30,12 @@ def deployment() -> Deployment:
             name="General Compute",
         ),
         container_registry_settings=ContainerRegistrySettings(
-            is_private=False,
+            is_private=False, privacyMode="private"
         ),
         containers=[
             Container(
                 autoupdate=AutoUpdate(enabled=True, mode="latest"),
-                environment=Environment(),
+                env=Environment(),
                 healthcheck=HealthCheck(
                     enabled=True,
                     path="/health",
