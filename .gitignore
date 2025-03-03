@@ -2,12 +2,3 @@
 .env
 build
 *.egg-info
-
-*.jpg
-
-/datacrunch_api/
-*.json
-/temp/
-utility/
-examples/
-sync_data/
