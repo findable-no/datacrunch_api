@@ -12,7 +12,7 @@ from .volume_mounts import VolumeMounts
 @dataclass(frozen=True)
 class Container:
     autoupdate: AutoUpdate
-    environment: Environment
+    env: Environment
     exposed_port: int
     healthcheck: HealthCheck
     image: str
