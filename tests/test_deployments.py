@@ -29,9 +29,7 @@ def deployment() -> Deployment:
         compute=Compute(
             name="General Compute",
         ),
-        container_registry_settings=ContainerRegistrySettings(
-            is_private=False, privacyMode="private"
-        ),
+        container_registry_settings=ContainerRegistrySettings(is_private=False),
         containers=[
             Container(
                 autoupdate=AutoUpdate(enabled=True, mode="latest"),

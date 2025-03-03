@@ -51,21 +51,21 @@ class VLLMEndpoint:
                 enabled=True,
                 cmd=command,
             ),
-            environment=Environment(
+            env=Environment(
                 [
                     EnvironmentVariable(
                         name="HF_TOKEN",
-                        value=self.huggingface_key,
+                        value_or_reference_to_secret=self.huggingface_key,
                         type="secret",
                     ),
                     EnvironmentVariable(
                         name="HF_HOME",
-                        value="/data/.huggingface",
+                        value_or_reference_to_secret="/data/.huggingface",
                         type="plain",
                     ),
                     EnvironmentVariable(
                         name="HF_HUB_ENABLE_HF_TRANSFER",
-                        value="1",
+                        value_or_reference_to_secret="1",
                         type="plain",
                     ),
                 ]

@@ -19,7 +19,9 @@ IS_PRIVATE_REPO = True
 
 
 MODEL = "Qwen/Qwen2.5-VL-7B-Instruct"
-COMMAND = []  # doesn't matter when using sync data on aws first since its overwritten
+COMMAND: list[str] = (
+    []
+)  # doesn't matter when using sync data on aws first since its overwritten
 
 
 def main(
