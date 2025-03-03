@@ -1,5 +1,6 @@
 import json
-from dotenv import load_dotenv  
+from dotenv import load_dotenv
+
 load_dotenv()
 from datacrunch_api.v1 import Deployments
 import typer  # type: ignore
@@ -11,15 +12,14 @@ from os import environ
 from .metadata_extraction_vllm_endpoint import VLLMEndpoint
 
 
-CONTAINER_NAME = "drawing-metadata-extraction" 
-IMAGE = "786001665406.dkr.ecr.eu-central-1.amazonaws.com/datacrunch:drawing-metadata-extraction" 
+CONTAINER_NAME = "drawing-metadata-extraction"
+IMAGE = "786001665406.dkr.ecr.eu-central-1.amazonaws.com/datacrunch:drawing-metadata-extraction"
 
 IS_PRIVATE_REPO = True
 
 
 MODEL = "Qwen/Qwen2.5-VL-7B-Instruct"
-COMMAND = [] # doesn't matter when using sync data on aws first since its overwritten
-
+COMMAND = []  # doesn't matter when using sync data on aws first since its overwritten
 
 
 def main(
