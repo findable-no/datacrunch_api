@@ -12,8 +12,8 @@ from os import environ
 from .metadata_extraction_vllm_endpoint import VLLMEndpoint
 
 
-CONTAINER_NAME = "drawing-metadata-extraction"
-IMAGE = "786001665406.dkr.ecr.eu-central-1.amazonaws.com/datacrunch:drawing-metadata-extraction"
+CONTAINER_NAME = "drawing-metadata-extraction-v2"
+IMAGE = "786001665406.dkr.ecr.eu-central-1.amazonaws.com/datacrunch:drawing-metadata-extraction-v2"
 
 IS_PRIVATE_REPO = True
 
