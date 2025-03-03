@@ -11,8 +11,8 @@ from os import environ
 from .vllm_endpoint import VLLMEndpoint
 
 
-CONTAINER_NAME = "v38" 
-IMAGE = "786001665406.dkr.ecr.eu-central-1.amazonaws.com/datacrunch:v38" 
+CONTAINER_NAME = "drawing-metadata-extraction" 
+IMAGE = "786001665406.dkr.ecr.eu-central-1.amazonaws.com/datacrunch:drawing-metadata-extraction" 
 
 IS_PRIVATE_REPO = True
 
@@ -80,15 +80,15 @@ def main(
     name: str = typer.Option(..., help="Name of the endpoint"),
 ):
     api = Deployments(client_id, client_secret)
-    endpoint = VLLMEndpoint(api, huggingface_key, name, IS_PRIVATE_REPO)
+    endpoint = VLLMEndpoint(api, name, IS_PRIVATE_REPO)
 
     response: dict | list | None = None
     match action:
         case "create":
             print("Creating endpoint")
             response = endpoint.create_endpoint(CONTAINER_NAME, IMAGE, COMMAND)
-            print("Adding env vars")
-            add_env_vars(ENDPOINT_NAME=name)
+            # print("Adding env vars")
+            # add_env_vars(ENDPOINT_NAME=name)
         case "delete":
             endpoint.delete_endpoint()
         case "list":
