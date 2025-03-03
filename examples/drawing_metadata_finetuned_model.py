@@ -8,7 +8,7 @@ from rich.panel import Panel  # type: ignore
 import requests
 from os import environ
 
-from .vllm_endpoint import VLLMEndpoint
+from .metadata_extraction_vllm_endpoint import VLLMEndpoint
 
 
 CONTAINER_NAME = "drawing-metadata-extraction" 
@@ -18,8 +18,8 @@ IS_PRIVATE_REPO = True
 
 
 MODEL = "Qwen/Qwen2.5-VL-7B-Instruct"
-COMMAND = [ # DOENST matter when using sync data on aws first since its overwritten
-]
+COMMAND = [] # DOENST matter when using sync data on aws first since its overwritten
+
 
 def add_env_vars(ENDPOINT_NAME):
     """sets the AWS env vars"""

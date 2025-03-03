@@ -28,15 +28,23 @@ class VLLMEndpoint:
     def __init__(
         self,
         api: Deployments,
-        huggingface_key: str,
         deployment_name: str,
+        is_private: bool = False,
+        huggingface_key: str = "hf-token",
+        aws_access_key: str = "aws-access-key",
+        aws_secret_key: str = "aws-secret-key",
+        aws_default_region: str = "eu-central-1",
     ):
         self.api = api
         self.huggingface_key = huggingface_key
         self.deployment_name = deployment_name
+        self.is_private = is_private
+        self.aws_access_key = aws_access_key
+        self.aws_secret_key = aws_secret_key
+        self.aws_default_region = aws_default_region
 
     def deployment(
-        self, container_name: str, image: str, command: list[str]
+        self, container_name: str, image: str, command: list[str], 
     ) -> Deployment:
         container = Container(
             name=container_name,
@@ -51,25 +59,38 @@ class VLLMEndpoint:
                 enabled=True,
                 cmd=command,
             ),
-            environment=Environment(
-                [
-                    EnvironmentVariable(
-                        name="HF_TOKEN",
-                        value=self.huggingface_key,
-                        type="secret",
-                    ),
-                    EnvironmentVariable(
-                        name="HF_HOME",
-                        value="/data/.huggingface",
-                        type="plain",
-                    ),
-                    EnvironmentVariable(
-                        name="HF_HUB_ENABLE_HF_TRANSFER",
-                        value="1",
-                        type="plain",
-                    ),
-                ]
-            ),
+            env=Environment([
+                EnvironmentVariable(
+                    name="HF_HOME",
+                    value_or_reference_to_secret="/data/huggingface",
+                    type="plain"
+                ),
+                EnvironmentVariable(
+                    name="HF_TOKEN",
+                    value_or_reference_to_secret=self.huggingface_key,
+                    type="secret",
+                ),
+                EnvironmentVariable(
+                    name="AWS_ACCESS_KEY_ID",
+                    value_or_reference_to_secret=self.aws_access_key,
+                    type="secret"
+                ),
+                EnvironmentVariable(
+                    name="AWS_SECRET_ACCESS_KEY",
+                    value_or_reference_to_secret=self.aws_secret_key,
+                    type="secret",
+                ),
+                EnvironmentVariable(
+                    name="AWS_DEFAULT_REGION",
+                    value_or_reference_to_secret=self.aws_default_region,
+                    type="plain",
+                ),
+                EnvironmentVariable(
+                    name="HF_HUB_ENABLE_HF_TRANSFER",
+                    value_or_reference_to_secret="1",
+                    type="plain",
+                ),
+            ]),
             autoupdate=AutoUpdate(
                 enabled=False,
                 mode="latest",
@@ -78,7 +99,7 @@ class VLLMEndpoint:
                 [
                     VolumeMount(
                         type="scratch",
-                        mount_path="/data/.huggingface",
+                        mount_path="/data/huggingface",
                     )
                 ]
             ),
@@ -87,10 +108,12 @@ class VLLMEndpoint:
             name=self.deployment_name,
             containers=[container],
             container_registry_settings=ContainerRegistrySettings(
-                is_private=False,
-                credentials=Credentials(
-                    name="hf-token",
-                ),
+                is_private=self.is_private,
+                privacyMode="private",
+                credentials=
+                    Credentials(
+                        name="aws-datacrunch-ecr-role-v3",
+                    ),
             ),
             compute=Compute(name="RTX6000 Ada"),
             scaling=Scaling(
