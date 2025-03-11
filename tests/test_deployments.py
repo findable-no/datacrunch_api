@@ -13,6 +13,7 @@ from datacrunch_api.v1 import (
     ScalingPolicy,
     ScalingTriggers,
     VolumeMounts,
+    GpuUtilization,
 )
 
 
@@ -52,7 +53,10 @@ def deployment() -> Deployment:
             concurrent_requests_per_replica=10,
             scale_down_policy=ScalingPolicy(delay_seconds=10),
             scale_up_policy=ScalingPolicy(delay_seconds=10),
-            scaling_triggers=ScalingTriggers(queue_load=QueueLoad(threshold=100)),
+            scaling_triggers=ScalingTriggers(
+                queue_load=QueueLoad(threshold=100),
+                gpu_utilization=GpuUtilization(enabled=True, threshold=100),
+            ),
         ),
     )
 
@@ -66,7 +70,10 @@ def scaling() -> Scaling:
         concurrent_requests_per_replica=10,
         scale_down_policy=ScalingPolicy(delay_seconds=10),
         scale_up_policy=ScalingPolicy(delay_seconds=10),
-        scaling_triggers=ScalingTriggers(queue_load=QueueLoad(threshold=100)),
+        scaling_triggers=ScalingTriggers(
+            queue_load=QueueLoad(threshold=100),
+            gpu_utilization=GpuUtilization(enabled=True, threshold=100),
+        ),
     )
 
 
