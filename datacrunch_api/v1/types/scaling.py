@@ -16,8 +16,16 @@ class QueueLoad:
 
 @dataclass_json
 @dataclass(frozen=True)
+class GpuUtilization:
+    enabled: bool
+    threshold: int
+
+
+@dataclass_json
+@dataclass(frozen=True)
 class ScalingTriggers:
     queue_load: QueueLoad
+    gpu_utilization: GpuUtilization
 
 
 @dataclass_json
