@@ -17,6 +17,7 @@ from .types.scaling import (
     Scaling,
     ScalingPolicy,
     ScalingTriggers,
+    GpuUtilization,
 )
 from .types.secret import Secret
 from .types.ssh_key import SSHKey
@@ -61,4 +62,5 @@ __all__ = [
     "Volumes",
     "StartupScript",
     "StartupScripts",
+    "GpuUtilization",
 ]

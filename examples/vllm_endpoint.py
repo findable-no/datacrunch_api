@@ -18,9 +18,11 @@ from datacrunch_api.v1 import (
     ScalingTriggers,
     VolumeMount,
     VolumeMounts,
+    GpuUtilization,
 )
 from rich import print  # type: ignore
 from rich.panel import Panel  # type: ignore
+from os import environ
 
 
 class VLLMEndpoint:
@@ -107,6 +109,10 @@ class VLLMEndpoint:
                 scaling_triggers=ScalingTriggers(
                     queue_load=QueueLoad(
                         threshold=2,
+                    ),
+                    gpu_utilization=GpuUtilization(
+                        enabled=True,
+                        threshold=int(environ.get("GPU_UTILIZATION_THRESHOLD", 100)),
                     ),
                 ),
             ),
