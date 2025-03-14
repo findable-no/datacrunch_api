@@ -94,7 +94,7 @@ class VLLMEndpoint:
                     name="hf-token",
                 ),
             ),
-            compute=Compute(name="RTX6000 Ada"),
+            compute=Compute(name="L40S", size=1),
             scaling=Scaling(
                 min_replica_count=1,
                 max_replica_count=1,
